@@ -4,7 +4,8 @@
   "author": "Lison<lison16new@163.com>",
   "private": false,
   "scripts": {
-    "dev": "vue-cli-service serve --open",
+    "dev:open": "vue-cli-service serve --open",
+    "dev": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },

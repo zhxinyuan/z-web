@@ -19,8 +19,8 @@ export default {
   baseUrl: {
     // dev: 'https://www.easy-mock.com/mock/5add9213ce4d0e69998a6f51/iview-admin/',
     // pro: 'https://produce.com'
-    dev: 'http://10.1.31.156:8888/',
-    pro: 'http://10.1.31.156:8888/'
+    dev: 'http://10.1.33.166:8888/',
+    pro: 'http://10.1.33.166:8888/'
   },
   /**
    * @description 默认打开的首页的路由name值，默认为home
