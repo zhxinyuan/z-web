@@ -14,10 +14,8 @@ export const login = ({ userName, password }) => {
 
 export const getUserInfo = (token) => {
   return axios.request({
-    url: 'get_info',
-    params: {
-      token
-    },
+    url: 'user/info',
+    token: token,
     method: 'get'
   })
 }
