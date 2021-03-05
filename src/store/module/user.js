@@ -90,9 +90,9 @@ export default {
       })
     },
     // 退出登录
-    handleLogOut ({ state, commit }) {
+    handleLogOut ({ commit }) {
       return new Promise((resolve, reject) => {
-        logout(state.token).then(() => {
+        logout().then((resp) => {
           commit('setToken', '')
           commit('setAccess', [])
           resolve()
@@ -106,15 +106,15 @@ export default {
       })
     },
     // 获取用户相关信息
-    getUserInfo ({ state, commit }) {
+    getUserInfo ({ commit }) {
       return new Promise((resolve, reject) => {
         try {
-          getUserInfo(state.token).then(res => {
+          getUserInfo().then(res => {
             const data = res.data
-            commit('setAvatar', data.avatar)
+            commit('setAvatar', 'https://himg.bdimg.com/sys/portraitn/item/246dcee8b6afc7e0b4ba363234c337')
             commit('setUserName', data.name)
-            commit('setUserId', data.user_id)
-            commit('setAccess', data.access)
+            commit('setUserId', data.id)
+            commit('setAccess', ['admin'])
             commit('setHasGetInfo', true)
             resolve(data)
           }).catch(err => {

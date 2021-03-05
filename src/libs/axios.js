@@ -10,17 +10,18 @@ const addErrorLog = errorInfo => {
     url: responseURL
   }
   if (!responseURL.includes('save_error_logger')) store.dispatch('addErrorLog', info)
-
+}
 class HttpRequest {
   constructor (baseUrl = baseURL) {
     this.baseUrl = baseUrl
     this.queue = {}
   }
   getInsideConfig () {
+    let userToken = store.state.user.token
     const config = {
       baseURL: this.baseUrl,
       headers: {
-        Authorization: 'Bearer ' + this.token
+        Authorization: userToken === false ? '' : userToken
       }
     }
     return config
@@ -64,7 +65,6 @@ class HttpRequest {
     })
   }
   request (options) {
-    this.token = options.token
     const instance = axios.create()
     options = Object.assign(this.getInsideConfig(), options)
     this.interceptors(instance, options.url)
