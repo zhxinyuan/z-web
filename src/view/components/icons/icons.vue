@@ -41,12 +41,24 @@ export default {
   data () {
     return {
       customIconList: [
-        'woman',
-        'man',
-        'smile',
-        'meh',
-        'frown',
-        'bear'
+        'yonghu',
+        'yonghu1',
+        'iconset0201',
+        'suv',
+        'QQ-Dark',
+        'yonghu2',
+        'mima',
+        'daochu',
+        'yonghu3',
+        'daoru',
+        'verify-fill',
+        'xiugai',
+        'ziyuan',
+        'xiazai',
+        'shangchuan_huaban',
+        'sousuo',
+        'QQ-Light',
+        'gengduo'
       ]
     }
   }

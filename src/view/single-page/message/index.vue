@@ -4,7 +4,7 @@
       <div class="message-page-con message-category-con">
         <Menu width="auto" active-name="unread" @on-select="handleSelect">
           <MenuItem name="unread">
-            <span class="category-title">未读消息</span><Badge style="margin-left: 10px" :count="messageUnreadCount"></Badge>
+            <span class="category-title">未读消息</span><Badge style="margin-left: 10px" :count="messageUnReadCount"></Badge>
           </MenuItem>
           <MenuItem name="readed">
             <span class="category-title">已读消息</span><Badge style="margin-left: 10px" class-name="gray-dadge" :count="messageReadedCount"></Badge>
@@ -44,7 +44,7 @@
         <Spin fix v-if="contentLoading" size="large"></Spin>
         <div class="message-view-header">
           <h2 class="message-view-title">{{ showingMsgItem.title }}</h2>
-          <time class="message-view-time">{{ showingMsgItem.create_time }}</time>
+          <time class="message-view-time">{{ showingMsgItem.createTime }}</time>
         </div>
         <div v-html="messageContent"></div>
       </div>

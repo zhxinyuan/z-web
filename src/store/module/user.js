@@ -128,7 +128,7 @@ export default {
     // 此方法用来获取未读消息条数，接口只返回数值，不返回消息列表
     getUnreadMessageCount ({ state, commit }) {
       getUnreadCount().then(res => {
-        const { data } = res
+        const { data } = res.data
         commit('setMessageCount', data)
       })
     },
@@ -136,16 +136,19 @@ export default {
     getMessageList ({ state, commit }) {
       return new Promise((resolve, reject) => {
         getMessage().then(res => {
-          const { unread, readed, trash } = res.data
-          commit('setMessageUnreadList', unread.sort((a, b) => new Date(b.create_time) - new Date(a.create_time)))
+          // const { unRead, readed, trash } = res.data
+          const unRead = res.data.data.unReadList
+          const readed = res.data.data.readedList
+          const trash = res.data.data.trashList
+          commit('setMessageUnreadList', unRead.sort((a, b) => new Date(b.createTime) - new Date(a.createTime)))
           commit('setMessageReadedList', readed.map(_ => {
             _.loading = false
             return _
-          }).sort((a, b) => new Date(b.create_time) - new Date(a.create_time)))
+          }).sort((a, b) => new Date(b.createTime) - new Date(a.createTime)))
           commit('setMessageTrashList', trash.map(_ => {
             _.loading = false
             return _
-          }).sort((a, b) => new Date(b.create_time) - new Date(a.create_time)))
+          }).sort((a, b) => new Date(b.createTime) - new Date(a.createTime)))
           resolve()
         }).catch(error => {
           reject(error)
