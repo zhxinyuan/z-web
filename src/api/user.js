@@ -1,9 +1,10 @@
 import axios from '@/libs/api.request'
 
-export const login = ({ userName, password }) => {
+export const login = ({ userName, password, verifyCode }) => {
   const data = {
     userName,
-    password
+    password,
+    verifyCode
   }
   return axios.request({
     url: 'login',
@@ -26,7 +27,7 @@ export const logout = (token) => {
   })
 }
 
-export const getUnreadCount = () => {
+export const getUnReadCount = () => {
   return axios.request({
     url: 'message/count',
     method: 'get'
@@ -53,7 +54,7 @@ export const getContentByMsgId = msg_id => {
 export const hasRead = msg_id => {
   return axios.request({
     url: 'message/has_read',
-    method: 'post',
+    method: 'get',
     data: {
       msg_id
     }

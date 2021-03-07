@@ -7,7 +7,7 @@ import {
   hasRead,
   removeReaded,
   restoreTrash,
-  getUnreadCount
+  getUnReadCount
 } from '@/api/user'
 import { setToken, getToken } from '@/libs/util'
 
@@ -19,7 +19,7 @@ export default {
     token: getToken(),
     access: '',
     hasGetInfo: false,
-    unreadCount: 0,
+    unReadCount: 0,
     messageUnreadList: [],
     messageReadedList: [],
     messageTrashList: [],
@@ -46,7 +46,7 @@ export default {
       state.hasGetInfo = status
     },
     setMessageCount (state, count) {
-      state.unreadCount = count
+      state.unReadCount = count
     },
     setMessageUnreadList (state, list) {
       state.messageUnreadList = list
@@ -68,18 +68,19 @@ export default {
     }
   },
   getters: {
-    messageUnreadCount: state => state.messageUnreadList.length,
+    messageUnReadCount: state => state.messageUnReadList.length,
     messageReadedCount: state => state.messageReadedList.length,
     messageTrashCount: state => state.messageTrashList.length
   },
   actions: {
     // 登录
-    handleLogin ({ commit }, { userName, password }) {
+    handleLogin ({ commit }, { userName, password, verifyCode }) {
       userName = userName.trim()
       return new Promise((resolve, reject) => {
         login({
           userName,
-          password
+          password,
+          verifyCode
         }).then(res => {
           const data = res.data
           commit('setToken', data.data)
@@ -126,14 +127,14 @@ export default {
       })
     },
     // 此方法用来获取未读消息条数，接口只返回数值，不返回消息列表
-    getUnreadMessageCount ({ state, commit }) {
-      getUnreadCount().then(res => {
+    getUnReadMessageCount ({ commit }) {
+      getUnReadCount().then(res => {
         const { data } = res.data
         commit('setMessageCount', data)
       })
     },
     // 获取消息列表，其中包含未读、已读、回收站三个列表
-    getMessageList ({ state, commit }) {
+    getMessageList ({ commit }) {
       return new Promise((resolve, reject) => {
         getMessage().then(res => {
           // const { unRead, readed, trash } = res.data
@@ -179,7 +180,7 @@ export default {
             to: 'messageReadedList',
             msg_id
           })
-          commit('setMessageCount', state.unreadCount - 1)
+          commit('setMessageCount', state.unReadCount - 1)
           resolve()
         }).catch(error => {
           reject(error)

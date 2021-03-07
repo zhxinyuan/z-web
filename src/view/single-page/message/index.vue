@@ -22,10 +22,10 @@
           :class="titleClass"
           @on-select="handleView"
         >
-          <MenuItem v-for="item in messageList" :name="item.msg_id" :key="`msg_${item.msg_id}`">
+          <MenuItem v-for="item in messageList" :name="item.id" :key="`msg_${item.id}`">
             <div>
               <p class="msg-title">{{ item.title }}</p>
-              <Badge status="default" :text="item.create_time" />
+              <Badge status="default" :text="item.createTime" />
               <Button
                 style="float: right;margin-right: 20px;"
                 :style="{ display: item.loading ? 'inline-block !important' : '' }"
@@ -55,7 +55,7 @@
 <script>
 import { mapState, mapGetters, mapMutations, mapActions } from 'vuex'
 const listDic = {
-  unread: 'messageUnreadList',
+  unread: 'messageUnReadList',
   readed: 'messageReadedList',
   trash: 'messageTrashList'
 }
@@ -72,7 +72,7 @@ export default {
   },
   computed: {
     ...mapState({
-      messageUnreadList: state => state.user.messageUnreadList,
+      messageUnReadList: state => state.user.messageUnReadList,
       messageReadedList: state => state.user.messageReadedList,
       messageTrashList: state => state.user.messageTrashList,
       messageList () {
@@ -85,7 +85,7 @@ export default {
       }
     }),
     ...mapGetters([
-      'messageUnreadCount',
+      'messageUnReadCount',
       'messageReadedCount',
       'messageTrashCount'
     ])
@@ -110,8 +110,8 @@ export default {
     handleView (msg_id) {
       this.contentLoading = true
       this.getContentByMsgId({ msg_id }).then(content => {
-        this.messageContent = content
-        const item = this.messageList.find(item => item.msg_id === msg_id)
+        this.messageContent = content.data
+        const item = this.messageList.find(item => item.id === msg_id)
         if (item) this.showingMsgItem = item
         if (this.currentMessageType === 'unread') this.hasRead({ msg_id })
         this.stopLoading('contentLoading')
