@@ -1,5 +1,6 @@
 import {
   login,
+  hasVerifyCode,
   logout,
   getUserInfo,
   getMessage,
@@ -86,6 +87,16 @@ export default {
           commit('setToken', data.data)
           resolve()
         }).catch(err => {
+          reject(err)
+        })
+      })
+    },
+    // 是否开启验证码
+    handleVerifyCodeEnable () {
+      return new Promise((resolve, reject) => {
+        hasVerifyCode().then(res => {
+          resolve(res.data)
+        }).catch(res => {
           reject(err)
         })
       })

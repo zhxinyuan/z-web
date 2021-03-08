@@ -13,6 +13,13 @@ export const login = ({ userName, password, verifyCode }) => {
   })
 }
 
+export const hasVerifyCode = () => {
+  return axios.request({
+    url: '/verify/code/enable',
+    method: 'get'
+  })
+}
+
 export const getUserInfo = () => {
   return axios.request({
     url: 'user/info',

@@ -14,12 +14,17 @@
         </span>
       </Input>
     </FormItem>
-    <FormItem prop="verifyCode">
-      <Input v-model="form.verifyCode" placeholder="请输入验证码">
-        <span slot="prepend">
-          <Icon :size="16" type="md-person"></Icon>
-        </span>
-      </Input>
+    <FormItem prop="verifyCode" v-if="verifyCodeEnable">
+      <div style="display: flex;align-items: center;">
+        <Input v-model="form.verifyCode" placeholder="请输入验证码">
+          <span slot="prepend">
+            <Icon :size="14" type="ios-keypad-outline"></Icon>
+          </span>
+        </Input>
+        <div style="width:150px; margin-left:10px" @click="handleVerifyCodeSrc">
+          <img :src="verifyCodeSrc" style="height:33px; width: 100px; cursor: pointer;" alt="点击更换" title="点击更换" />
+        </div>
+      </div>
     </FormItem>
     <FormItem>
       <Button @click="handleSubmit" type="primary" long>登录</Button>
@@ -30,6 +35,14 @@
 export default {
   name: 'LoginForm',
   props: {
+    verifyCodeEnable: {
+      type: Boolean,
+      default: false
+    },
+    verifyCodeSrc: {
+      type: String,
+      default: ''
+    },
     userNameRules: {
       type: Array,
       default: () => {
@@ -74,13 +87,16 @@ export default {
     }
   },
   methods: {
+    handleVerifyCodeSrc () {
+      this.$emit('on-get-verify-code', {})
+    },
     handleSubmit () {
       this.$refs.loginForm.validate((valid) => {
         if (valid) {
           this.$emit('on-success-valid', {
             userName: this.form.userName,
             password: this.form.password,
-            veriryCode: this.form.verifyCode
+            verifyCode: this.form.verifyCode
           })
         }
       })
