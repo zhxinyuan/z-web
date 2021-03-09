@@ -75,13 +75,14 @@ export default {
   },
   actions: {
     // 登录
-    handleLogin ({ commit }, { userName, password, verifyCode }) {
+    handleLogin ({ commit }, { userName, password, verifyCode, verifyId }) {
       userName = userName.trim()
       return new Promise((resolve, reject) => {
         login({
           userName,
           password,
-          verifyCode
+          verifyCode,
+          verifyId
         }).then(res => {
           const data = res.data
           commit('setToken', data.data)

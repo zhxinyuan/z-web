@@ -19,7 +19,8 @@ export default {
     return {
       baseUrl: '',
       verifyCodeEnable: false,
-      verifyCodeSrc: null
+      verifyCodeSrc: null,
+      verifyId: null
     }
   },
   components: {
@@ -43,17 +44,25 @@ export default {
     },
     getVerifyCodeSrc () {
       if (this.verifyCodeEnable) {
-        this.verifyCodeSrc = this.baseUrl + 'verify/code?timestamp=' + new Date().getTime()
+        this.verifyId = this.generateUUID()
+        this.verifyCodeSrc = this.baseUrl + 'verify/code?verifyId=' + this.verifyId + '&timestamp=' + new Date().getTime()
       }
     },
-    handleSubmit ({ userName, password, verifyCode }) {
-      this.handleLogin({ userName, password, verifyCode }).then(res => {
+    handleSubmit ({ userName, password, verifyCode, verifyId }) {
+      verifyId = this.verifyId
+      this.handleLogin({ userName, password, verifyCode, verifyId }).then(res => {
         this.getUserInfo().then(res => {
           this.$router.push({
             name: this.$config.homeName
           })
         })
       })
+    },
+    generateUUID () {
+      return (this.S4() + this.S4() + '-' + this.S4() + '-' + this.S4() + '-' + this.S4() + '-' + this.S4() + this.S4() + this.S4())
+    },
+    S4 () {
+      return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1)
     }
   }
 }
