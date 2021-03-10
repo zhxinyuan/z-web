@@ -2,7 +2,7 @@ import Mock from 'mockjs'
 import { doCustomTimes } from '@/libs/util'
 const Random = Mock.Random
 
-export const getMessagInit = () => {
+export const getMessage = () => {
   let unreadList = []
   doCustomTimes(3, () => {
     unreadList.push(Mock.mock({

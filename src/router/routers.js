@@ -51,6 +51,15 @@ export default [
     ]
   },
   {
+    path: 'system_settings',
+    name: 'system_settings',
+    meta: {
+      icon: 'ios-cog-outline',
+      title: '系统设置'
+    },
+    component: () => import('@/view/components/tree-select/index.vue')
+  },
+  {
     path: '',
     name: 'doc',
     meta: {
